@@ -15,5 +15,5 @@ jobs:
       - name: rodando os testes
         run: | 
           npm install
-          npx cypress open
+          npx cypress run
           
