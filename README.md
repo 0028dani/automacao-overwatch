@@ -64,10 +64,5 @@ npm install
 
 **Para executar**
 ```
-npx cypress open
+npx cypress run --browser chrome --headed
 ```
-**Ao abrir o cypress:**
-- Clicar em E2E testing
-- Selecionar Chrome
-- Depois clicar em Start E2E Testing in Chrome
-- E por fim clicar no arquivo demoBlaze.feature
