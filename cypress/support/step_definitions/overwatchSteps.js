@@ -1,3 +1,5 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 import Overwatch from "../pageobjects/overwatchPage";
 
 const overwatch = new Overwatch

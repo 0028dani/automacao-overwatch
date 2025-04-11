@@ -1,13 +1,24 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
+const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
+const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild').default;
+const addCucumberPreprocessorPlugin = require('@badeball/cypress-cucumber-preprocessor').addCucumberPreprocessorPlugin;
 
 module.exports = defineConfig({
   e2e: {
-    scrollBehavior: false,
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
-    setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.js')(on, config)
+    specPattern: 'cypress/e2e/**/*.feature',
+    supportFile: "cypress/support/e2e.js",
+
+   async setupNodeEvents(on, config) {
+    await addCucumberPreprocessorPlugin(on, config, {
+      stepDefinitions: "cypress/support/step_definitions",
+      messagesOutputPath: 'cypress/cucumber-json/cucumber-report.json'
+    });
+
+    on("file:preprocessor", createBundler({
+      plugins: [createEsbuildPlugin(config)],
+    }));
+
+    return config;
     },
-    specPattern: 'cypress/integration/**/*.feature',
   },
 });

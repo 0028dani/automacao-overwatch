@@ -5,25 +5,32 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:complete": "node run-tests.js --env TAGS=\"@jogadores\"",
+    "report": "npx generate-report.js",
+    "chrome:@jogadores": "npx cypress run --browser chrome --headed  --env TAGS=\"@jogadores\" ; npm run report",
     "chrome": "npx cypress run --browser chrome --headed",
     "headless": "npx cypress run",
     "chrome:@herois": "npx cypress run --browser chrome --headed  --env TAGS=\"@herois\"",
     "headless:@herois": "npx cypress run --env TAGS=\"@herois\"",
     "openCypress:@herois": "npx cypress open --env TAGS=\"@herois\""
-
   },
   "keywords": [],
   "author": "Daniela Arcanjo",
   "license": "ISC",
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^22.0.0",
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "@cucumber/cucumber": "^11.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "cypress": "^13.17.0",
-    "cypress-cucumber-preprocessor": "^4.3.1"
+    "multiple-cucumber-html-reporter": "^3.9.2"
   },
   "cypress-cucumber-preprocessor": {
-    "step_definitions": "cypress/support/steps"
+    "step_definitions": "cypress/support/step_definitions",
+    "json": {
+        "enabled": true,
+        "output": "cypress/reports/cucumber-report.json"
+      }
   },
   "dependencies": {
     "cypress-real-events": "^1.13.0"
